@@ -79,12 +79,12 @@ export class NewsMain extends Component {
         }
     }
 
-    async componentDidMount(){
+    async componentDidMount() {
         let url = `https://newsapi.org/v2/top-headlines?country=us&apiKey=c825930dbb5e461a94571612886bf0e6&page=1&pageSize=${this.props.pageSize}`
         let data = await fetch(url)
         let parsedData = await data.json()
         // console.log(parsedData);
-        this.setState({topNews: parsedData.articles, totalNews: parsedData.totalResults})
+        this.setState({ topNews: parsedData.articles, totalNews: parsedData.totalResults })
     }
 
     prevNews = async () => {
@@ -92,16 +92,17 @@ export class NewsMain extends Component {
         let data = await fetch(url)
         let parsedData = await data.json()
         // console.log(parsedData);
-        this.setState({topNews: parsedData.articles, page: this.state.page-1})
+        this.setState({ topNews: parsedData.articles, page: this.state.page - 1 })
     }
 
     nextNews = async () => {
-        if(!(this.state.page+1 > Math.ceil(this.state.totalNews/this.props.pageSize))){
-        let url = `https://newsapi.org/v2/top-headlines?country=us&apiKey=c825930dbb5e461a94571612886bf0e6&page=${this.state.page + 1}&pageSize=${this.props.pageSize}`
-        let data = await fetch(url)
-        let parsedData = await data.json()
-        // console.log(parsedData);
-        this.setState({topNews: parsedData.articles, page: this.state.page+1})}
+        if (!(this.state.page + 1 > Math.ceil(this.state.totalNews / this.props.pageSize))) {
+            let url = `https://newsapi.org/v2/top-headlines?country=us&apiKey=c825930dbb5e461a94571612886bf0e6&page=${this.state.page + 1}&pageSize=${this.props.pageSize}`
+            let data = await fetch(url)
+            let parsedData = await data.json()
+            // console.log(parsedData);
+            this.setState({ topNews: parsedData.articles, page: this.state.page + 1 })
+        }
     }
 
     render() {
@@ -117,7 +118,7 @@ export class NewsMain extends Component {
                 </div>
                 <div className='container d-flex justify-content-between mt-4'>
                     <button type='button' disabled={this.state.page <= 1} className='btn btn-primary' onClick={this.prevNews}>Previous</button>
-                    <button type='button' disabled={this.state.page+1 > Math.ceil(this.state.totalNews/this.props.pageSize)} className='btn btn-primary' onClick={this.nextNews}>Next</button>
+                    <button type='button' disabled={this.state.page + 1 > Math.ceil(this.state.totalNews / this.props.pageSize)} className='btn btn-primary' onClick={this.nextNews}>Next</button>
                 </div>
             </div>
         )
